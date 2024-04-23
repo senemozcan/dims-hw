@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Management Site</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <style>
+
+        body {
+            background-image: url('/lofigirl.jpg');
+            background-size: cover;
+        }
+        .container-fluid
+        {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid text-center">
+    <h1>Welcome to my task management website!</h1>
+    <br>
+    <br>
+    <div><a class ="h2 " th:href="@{/Employee}"> Employee</a></div>
+    <div> <a class ="h2 " th:href="@{/Task}"> Task</a></div>
+    <div><a class="h2" th:href="@{/taskers}"> Tasker</a></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Create a Tasker</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+
+<body>
+<div class="container-fluid" align="center">
+    <h1>Create a tasker</h1>
+    <br />
+    <form action="#" th:action="@{/Task/createtask/{taskId}(taskId=${task.getId()})}" th:object="${taskCreateDTO}" method="post">
+
+        <table border="0" cellpadding="10">
+            <tr style="color: purple">
+
+                <td>
+                    <label for="task">Task Name:</label>
+                    <input type="text" id="task" class="form-control" name="task" th:value="${task.name}" disabled>
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <td>Days:</td>
+                <td><input type="number" name="days" required /></td>
+            </tr>
+            <tr>
+                <label for="employee">Select Employee:</label>
+                <select id="employee" class="form-control" name="employeeId">
+                    <option value="">-- Select Employee --</option>
+                    <option th:each="employee : ${employees}"
+                            th:value="${employee.id}"
+                            th:text="${employee.name}">task
+                    </option>
+                </select>
+            </tr>
+
+            <tr>
+                <td>Date:</td>
+                <td><input type="date" name="date" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit">Save </button> </td>
+                <td colspan="2"><button onclick="cancelForm()" type="button">Cancel</button> </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+<script type="text/javascript">
+    function cancelForm(){
+        window.location='/taskindex';
+    }
+</script>
+</body>
+</html>
