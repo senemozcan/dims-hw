@@ -1,4 +1,7 @@
 package com.example.dimshw.Services;
+import com.example.dimshw.Exceptions.EmployeeNotFoundException;
+import com.example.dimshw.Exceptions.TaskNotFoundException;
+import com.example.dimshw.Exceptions.TaskerNotFoundException;
 import com.example.dimshw.Model.Employee;
 import com.example.dimshw.Model.Tasker;
 import com.example.dimshw.Model.Task;
@@ -12,8 +15,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 import java.util.Optional;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 
 @Service
@@ -66,7 +67,7 @@ public class TaskerServiceImp implements TaskerService {
         }
     }
 
-    public void updateTasker(Tasker tasker) throws TaskerNotFoundException {
+    public void updateTasker(Tasker tasker) throws TaskerNotFoundException, TaskNotFoundException, EmployeeNotFoundException {
 
         Optional<Tasker> optionalTasker = taskerRepository.findById(tasker.getId());
 
@@ -78,12 +79,19 @@ public class TaskerServiceImp implements TaskerService {
 
             Task task = null;
             task = taskRepository.findByName(tasker.getTask().getName());
+            if(task == null)
+            {
+                throw new TaskNotFoundException("task %s not found" .formatted(tasker.getTask().getName()));
+            }
 
 
             Employee employee = null;
             employee = employeeRepository.findByName(tasker.getEmployee().getName());
 
-
+            if(employee == null)
+            {
+                throw new EmployeeNotFoundException("employee %s not found" .formatted(tasker.getEmployee().getName()));
+            }
             existingTasker.setTask(task);
             existingTasker.setEmployee(employee);
 

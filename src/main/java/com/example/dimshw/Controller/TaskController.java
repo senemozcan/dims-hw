@@ -1,11 +1,13 @@
 package com.example.dimshw.Controller;
+import com.example.dimshw.Exceptions.BaseException;
 import com.example.dimshw.Model.Task;
-import com.example.dimshw.Services.TaskNotFoundException;
+import com.example.dimshw.Exceptions.TaskNotFoundException;
 import com.example.dimshw.Services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -72,5 +74,12 @@ public class TaskController {
             ra.addFlashAttribute("message", e.getMessage());
         }
         return "redirect:/Task";
+    }
+    @ExceptionHandler(BaseException.class)
+    public ModelAndView handleError(BaseException ex){
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", ex.getMessage());
+        mav.setViewName("error");
+        return mav;
     }
 }
